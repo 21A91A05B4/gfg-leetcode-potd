@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dp[10000];
+int fun(int a[],int idx,int n){
+	//base case
+	if(idx==(n-1)){
+		return 0;
+	}
+	
+	if(dp[idx]!=-1) return dp[idx];
+	
+	//left call
+	int left=abs(a[idx]-a[idx+1])+fun(a,idx+1,n);
+	
+	//right call
+	int right=INT_MAX;
+	if(idx+2<=(n-1)) right=abs(a[idx]-a[idx+2])+fun(a,idx+2,n);
+	
+	return dp[idx]=min(left,right);
+	
+}
+
+int main(){
+	int n;
+	cin>>n;
+	int a[n];
+	for(int i=0;i<n;i++){
+		cin>>a[i];
+	}
+	memset(dp,-1,sizeof(dp));
+	cout<<fun(a,0,n);
+}
+
