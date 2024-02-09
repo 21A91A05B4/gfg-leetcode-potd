@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int dp[1001][1001];
+    int fun(int i,int j,string &s1,string &s2){
+        if(i==s1.size()){
+            int p1=0;
+            for(int k=j;k<s2.size();k++){
+                p1+=int(s2[k]);
+            }
+            return p1;
+        }
+        if(j==s2.size()){
+            int p1=0;
+            for(int k=i;k<s1.size();k++){
+                p1+=int(s1[k]);
+            }
+            return p1;
+        }
+        if(dp[i][j]!=-1) return dp[i][j];
+        int pick=1e9;
+        int next=1e9;
+        int notpick=1e9;
+        if(s1[i]!=s2[j]){
+            pick=int(s1[i])+fun(i+1,j,s1,s2);
+            next=int(s2[j])+fun(i,j+1,s1,s2);
+        }
+        else{
+            notpick=fun(i+1,j+1,s1,s2);
+        }
+        return dp[i][j]=min(pick,min(next,notpick));
+    }
+
+
+    int minimumDeleteSum(string s1, string s2) {
+        memset(dp,-1,sizeof(dp));
+        int g=fun(0,0,s1,s2);
+        
+        return g;
+    }
+};
