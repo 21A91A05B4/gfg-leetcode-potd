@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int fun(int i,int j,vector<vector<int>>& tr,int n,vector<vector<int>>&dp){
+        int k,kh;
+        if(i==n-1) return tr[i][j];
+        if(dp[i][j]!=-1) return dp[i][j];
+        k=tr[i][j]+fun(i+1,j,tr,n,dp);
+        kh=tr[i][j]+fun(i+1,j+1,tr,n,dp);
+        return dp[i][j]=min(k,kh);
+    }
+    int minimumTotal(vector<vector<int>>& tr) {
+        int n=tr.size();
+        vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
+        int f=fun(0,0,tr,n,dp);
+        return f;
+    }
+};
