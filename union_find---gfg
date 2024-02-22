@@ -1,0 +1,31 @@
+int ultimate_par(int x,int par[]){       //path compression
+        if(x==par[x]) return x;
+        return par[x]=ultimate_par(par[x],par);
+    }
+    
+    void union_( int a, int b, int par[], int rank1[]) 
+    {
+        if(par[a]==par[b]) return;
+        else{
+            int ult_par_a=ultimate_par(a,par);
+            int ult_par_b=ultimate_par(b,par);
+            if(rank1[ult_par_a]>rank1[ult_par_b]){
+                par[ult_par_b]=ult_par_a;
+            }
+            else if(rank1[ult_par_a]<rank1[ult_par_b]){
+                par[ult_par_a]=ult_par_b;
+            }
+            else{
+                par[ult_par_a]=ult_par_b;
+                rank1[ult_par_b]+=1;
+            }
+            
+        }
+    }
+    
+    //Function to check whether 2 nodes are connected or not.
+    bool isConnected(int x,int y, int par[], int rank1[])
+    {
+        if(ultimate_par(x,par)==ultimate_par(y,par)) return true;
+        return false;
+    }
